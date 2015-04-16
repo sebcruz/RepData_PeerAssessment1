@@ -7,7 +7,16 @@ output:
 
 
 ## Loading and preprocessing the data
+# Set your Present Working Directory (pwd)
+# Edit as necessary
+setwd("~/GitHub/RepData_PeerAssessment1")
 
+# Download and Unzip Data
+download.file( url="https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip", destfile="activity.zip")
+unzip("activity.zip")
+
+# Import Data
+act_raw = read.csv("activity.csv", header = TRUE)
 
 
 ## What is mean total number of steps taken per day?
