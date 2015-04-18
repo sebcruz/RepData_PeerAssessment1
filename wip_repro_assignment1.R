@@ -115,6 +115,43 @@ ggplot(data=act_full_avgByIntervalByDayType, aes(x=interval, y=modSteps)) +
   facet_grid(DayType~.)
 
 
+#png saves
+png("hist.png")
+qplot(act_clean_sumByDate$steps,
+      geom = "histogram",
+      fill = I("grey"),
+      col = I("white"),
+      main = "Histogram of Total Daily Steps",
+      xlab = "Daily Steps",
+      ylab = "Frequency"
+)
+dev.off()
+
+png("avgStepsByInterval.png")
+qplot(interval, steps, data=act_clean_avgByInterval, 
+      geom="line",
+      main="Average Steps by Interval")
+dev.off()
+
+png("modHist.png")
+qplot(act_full_sumByDate$modSteps,
+      geom = "histogram",
+      fill = I("grey"),
+      col = I("white"),
+      main = "Histogram of Total Daily modSteps",
+      xlab = "Daily modSteps (NAs replaced with Interval Means)",
+      ylab = "Frequency"
+)
+dev.off()
+
+png("panel.png")
+ggplot(data=act_full_avgByIntervalByDayType, aes(x=interval, y=modSteps)) + 
+  geom_line() + 
+  facet_grid(DayType~.) +
+  ggtitle("Average modSteps by Interval by DayType") +
+  ylab("modSteps (NAs replaced with Interval Means)")
+dev.off()
+
 
 
 
