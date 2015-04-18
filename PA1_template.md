@@ -28,7 +28,9 @@ act_clean = act_raw[complete.cases(act_raw), ]
 ```r
 # Aggregate Steps by Date
 act_clean_sumByDate = aggregate(steps ~ date, data=act_clean, FUN=sum)
+```
 
+```r
 # Histogram of Step Sum by Date
 qplot(act_clean_sumByDate$steps,
       geom = "histogram",
@@ -39,8 +41,9 @@ qplot(act_clean_sumByDate$steps,
       ylab = "Frequency"
       )
 ```
+![Nocs title](https://github.com/sebcruz/RepData_PeerAssessment1/blob/master/plots/hist.png "Histogram of Step Sum by Date")
 
-![](PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
+
 
 2. Calculate and report the mean and median total number of steps taken per day
 
@@ -73,7 +76,7 @@ qplot(interval, steps, data=act_clean_avgByInterval,
       main="Average Steps by Interval")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
 
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
@@ -128,7 +131,7 @@ qplot(act_full_sumByDate$modSteps,
       )
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-8-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-9-1.png) 
 
 
 ```r
@@ -190,5 +193,5 @@ ggplot(data=act_full_avgByIntervalByDayType, aes(x=interval, y=modSteps)) +
   ylab("modSteps (NAs replaced with Interval Means)")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-12-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-13-1.png) 
 

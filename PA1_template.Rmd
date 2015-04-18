@@ -32,6 +32,9 @@ act_clean = act_raw[complete.cases(act_raw), ]
 # Aggregate Steps by Date
 act_clean_sumByDate = aggregate(steps ~ date, data=act_clean, FUN=sum)
 
+
+```
+```{r, eval=FALSE}
 # Histogram of Step Sum by Date
 qplot(act_clean_sumByDate$steps,
       geom = "histogram",
@@ -42,6 +45,9 @@ qplot(act_clean_sumByDate$steps,
       ylab = "Frequency"
       )
 ```
+![Nocs title](https://github.com/sebcruz/RepData_PeerAssessment1/blob/master/plots/hist.png "Histogram of Step Sum by Date")
+
+
 
 2. Calculate and report the mean and median total number of steps taken per day
 ```{r, echo=TRUE, message=FALSE}
