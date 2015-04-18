@@ -1,4 +1,9 @@
-# Reproducible Research: Peer Assessment 1
+---
+title: "Reproducible Research: Peer Assessment 1"
+output: 
+  html_document:
+    keep_md: true
+---
 by Sebastian Cruz
 
 ## Loading and preprocessing the data
@@ -28,9 +33,7 @@ act_clean = act_raw[complete.cases(act_raw), ]
 ```r
 # Aggregate Steps by Date
 act_clean_sumByDate = aggregate(steps ~ date, data=act_clean, FUN=sum)
-```
 
-```r
 # Histogram of Step Sum by Date
 qplot(act_clean_sumByDate$steps,
       geom = "histogram",
@@ -41,9 +44,8 @@ qplot(act_clean_sumByDate$steps,
       ylab = "Frequency"
       )
 ```
-![Nocs title](https://github.com/sebcruz/RepData_PeerAssessment1/blob/master/plots/hist.png "Histogram of Step Sum by Date")
 
-
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
 
 2. Calculate and report the mean and median total number of steps taken per day
 
@@ -68,15 +70,16 @@ median(act_clean$steps)
 1. Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 
 ```r
-# Aggregate by Interval
+# Aggregate Avg Steps by Interval
 act_clean_avgByInterval = aggregate(steps ~ interval, data=act_clean, FUN= mean)
+
 # Plot Average Steps by Interval
 qplot(interval, steps, data=act_clean_avgByInterval, 
       geom="line",
       main="Average Steps by Interval")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png) 
 
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
@@ -131,7 +134,7 @@ qplot(act_full_sumByDate$modSteps,
       )
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-9-1.png) 
+![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8-1.png) 
 
 
 ```r
@@ -193,5 +196,5 @@ ggplot(data=act_full_avgByIntervalByDayType, aes(x=interval, y=modSteps)) +
   ylab("modSteps (NAs replaced with Interval Means)")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-13-1.png) 
+![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png) 
 
