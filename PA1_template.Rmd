@@ -31,8 +31,6 @@ act_clean = act_raw[complete.cases(act_raw), ]
 ```{r, echo=TRUE, message=FALSE}
 # Aggregate Steps by Date
 act_clean_sumByDate = aggregate(steps ~ date, data=act_clean, FUN=sum)
-
-
 ```
 ```{r, eval=FALSE}
 # Histogram of Step Sum by Date
@@ -45,9 +43,7 @@ qplot(act_clean_sumByDate$steps,
       ylab = "Frequency"
       )
 ```
-![Nocs title](https://github.com/sebcruz/RepData_PeerAssessment1/blob/master/plots/hist.png "Histogram of Step Sum by Date")
-
-
+![Histogram](https://github.com/sebcruz/RepData_PeerAssessment1/blob/master/plots/hist.png "Histogram of Step Sum by Date")
 
 2. Calculate and report the mean and median total number of steps taken per day
 ```{r, echo=TRUE, message=FALSE}
@@ -59,13 +55,17 @@ median(act_clean$steps)
 ## What is the average daily activity pattern?
 1. Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 ```{r, echo=TRUE, message=FALSE}
-# Aggregate by Interval
+# Aggregate Avg Steps by Interval
 act_clean_avgByInterval = aggregate(steps ~ interval, data=act_clean, FUN= mean)
+```
+```{r, eval=FALSE}
 # Plot Average Steps by Interval
 qplot(interval, steps, data=act_clean_avgByInterval, 
       geom="line",
       main="Average Steps by Interval")
 ```
+
+![LinePlot](https://github.com/sebcruz/RepData_PeerAssessment1/blob/master/plots/avgStepsByInterval.png "Plot Average Steps by Interval")
 
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 ```{r, echo=TRUE, message=FALSE}
@@ -96,7 +96,8 @@ act_full$modSteps = ifelse(is.na(act_full$steps.x), act_full$steps.y, act_full$s
 ```{r, echo=TRUE, message=FALSE}
 # Aggregate Steps by Date
 act_full_sumByDate = aggregate(modSteps ~ date, data=act_full, FUN=sum)
-
+```
+```{r, eval=FALSE}
 # Histogram of Step Sum by Date
 qplot(act_full_sumByDate$modSteps,
       geom = "histogram",
@@ -107,6 +108,7 @@ qplot(act_full_sumByDate$modSteps,
       ylab = "Frequency"
       )
 ```
+![modHist](https://github.com/sebcruz/RepData_PeerAssessment1/blob/master/plots/modHist.png "Histogram of Total Daily modSteps")
 
 ```{r, echo=TRUE, message=FALSE}
 mean(act_full$modSteps)
@@ -134,7 +136,8 @@ act_full$DayType = factor(ifelse(weekdays(as.Date(act_full$date)) %in% c("Saturd
 ```{r, echo=TRUE, message=FALSE}
 # Aggregate by Interval
 act_full_avgByIntervalByDayType = aggregate(modSteps ~ interval + DayType, data=act_full, FUN=mean)
-
+```
+```{r, eval=FALSE}
 # Plot Average modSteps by Interval by DayType
 ggplot(data=act_full_avgByIntervalByDayType, aes(x=interval, y=modSteps)) + 
   geom_line() + 
@@ -142,4 +145,4 @@ ggplot(data=act_full_avgByIntervalByDayType, aes(x=interval, y=modSteps)) +
   ggtitle("Average modSteps by Interval by DayType") +
   ylab("modSteps (NAs replaced with Interval Means)")
 ```
-
+![panelPlot](https://github.com/sebcruz/RepData_PeerAssessment1/blob/master/plots/panel.png "Plot Average modSteps by Interval by DayType")
