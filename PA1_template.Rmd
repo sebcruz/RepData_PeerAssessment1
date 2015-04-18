@@ -107,3 +107,33 @@ mean(act_full$modSteps)
 median(act_full$modSteps)
 ```
 
+- The mean and median values between the original dataset, act_raw, and a dataset with NAs replaced, act_full, compared
+```{r, echo=TRUE, message=FALSE}
+# Means Compared
+mean(act_clean$steps) - mean(act_full$modSteps)
+
+# Medians Compared
+median(act_clean$steps) - median(act_full$modSteps)
+```
+ - There is no impact between the original and imputed datasets for mean or median.
+
+## Are there differences in activity patterns between weekdays and weekends?
+1. Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
+```{r, echo=TRUE, message=FALSE}
+# Append Weekend/Weekday as new factor column
+act_full$DayType = factor(ifelse(weekdays(as.Date(act_full$date)) %in% c("Saturday", "Sunday"), "Weekend", "Weekday"))
+```
+
+2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
+```{r, echo=TRUE, message=FALSE}
+# Aggregate by Interval
+act_full_avgByIntervalByDayType = aggregate(modSteps ~ interval + DayType, data=act_full, FUN=mean)
+
+# Plot Average modSteps by Interval by DayType
+ggplot(data=act_full_avgByIntervalByDayType, aes(x=interval, y=modSteps)) + 
+  geom_line() + 
+  facet_grid(DayType~.) +
+  ggtitle("Average modSteps by Interval by DayType") +
+  ylab("modSteps (NAs replaced with Interval Means)")
+```
+
